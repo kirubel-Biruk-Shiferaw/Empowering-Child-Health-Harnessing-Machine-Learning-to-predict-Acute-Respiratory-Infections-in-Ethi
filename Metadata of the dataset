@@ -1,1 +1,81 @@
+No.	Code	Variable Name
+1.		V025	Type of place of residence 
+	1= Urban 
+	2= Rural
+2.		V106	Highest educational level 
+	0= No education
+	1= Primary
+	2= Secondary
+	3= Higher
+3.		V119	Household has electricity 
+	0= No
+	1= Yes
+	2= Not a dejure resident
+4.		V190	Wealth index combined 
+	1= Poorest  
+	2= Poorer
+	3= Middle
+	4= Richer
+	5= Richest
+5.		V404	Current breastfeeding 
+	0= No
+	1= Yes
+6.		B4	Sex of child 
+	1= Male
+	2= Female
+7.		B9 	Child lives with whom
+	0= Respondent
+	1= Father
+	2= Other relative
+	3= Someone else
+	4= Lives elsewhere 
+8.		Outcome variable 
+	0= No
+	1= Yes
+9.		Age of child 
+	0= Less than 6 months
+	1= 6-11 month
+	2= 12- 23 month
+	3= 24-35 month
+	4= 36-47 month
+	5= 48-59 month
+10.		Type of cooking fuel 
+	1= Electricity 
+	2= Wood
+	3= Charcoal
+	4= Others 
+11.		Type of toilet facility 
+	1= Not improved 
+	2= Improved 
+	3= Others 
+12.		Mothers occupation 
+	0= Not working
+	1= Working 
+13.		Wasting
+	0= Normal
+	1= Sever
+	2= Moderate 
+14.		Stunting
+	0= Normal 
+	1= Abnormal 
+15.		Had diarrhea
+	0= No
+	1= Yes
+16.		Drug for intestinal parasites
+	0= No
+	1= Yes
+17.		Number of living children
+	0= 1-3
+	1= 4-6
+	2= above 6
+18.		Source of drinking water
+	0= Improved
+	1= Not improved
+	2= Others
+19.		Duration of breastfeeding 
+	0= Ever breastfeed
+	1= Never breastfeed
+20.		Vitamin A supplement
+	0= No
+	1= Yes
 
