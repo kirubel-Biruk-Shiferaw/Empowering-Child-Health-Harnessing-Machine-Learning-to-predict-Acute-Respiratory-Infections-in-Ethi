@@ -1,1 +1,5 @@
+# The code is writen using Jupyter notebook (Python environment) and anyone interested to replicate the result can use the modules (main model, resampling comparision and model coparision codes)
+# Phyton version 13.9
+# All the requiered libraries can be found in the modules
+# Your path/location refers to the location where your working directory/data is located
 
