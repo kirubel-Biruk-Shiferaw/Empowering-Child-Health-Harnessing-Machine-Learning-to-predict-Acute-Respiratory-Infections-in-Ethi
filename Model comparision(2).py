@@ -5,6 +5,7 @@
 # Libraries
 import pandas as pd
 import numpy as np
+from scipy.stats import chi2_contingency
 import matplotlib.pyplot as plt
 import seaborn as sns
 from mpl_toolkits.mplot3d import Axes3D
@@ -32,11 +33,29 @@ sns.heatmap(data.isnull(),yticklabels=False,cbar=False,cmap='viridis')
 # see the nature of outcome variable's class imbalance
 sns.countplot(x='outcomevar', data=data) #The imbalance is unfair in our case
 
-#calculate the correlation 
-data.corr() # we want to see the correlation because we dont want features with no correlation with the outcome variable and still imbalanced feature.
+##Calculating Cramer's V correlation
+def cramers_V(var1,var2) :
+  crosstab =np.array(pd.crosstab(var1,var2, rownames=None, colnames=None)) # Cross table building
+  stat = chi2_contingency(crosstab)[0] # Keeping of the test statistic of the Chi2 test
+  obs = np.sum(crosstab) # Number of observations
+  mini = min(crosstab.shape)-1 # Take the minimum value between the columns and the rows of the cross table
+  return np.sqrt(stat/(obs*mini))
+rows= []
 
-#see the correlation heatmap
-sns.heatmap(data.corr(), cmap='coolwarm') #Very good correlation in our case
+for var1 in data:
+  col = []
+  for var2 in data :
+    cramers =cramers_V(data[var1], data[var2]) # Cramer's V test
+    col.append(round(cramers,2)) # Keeping of the rounded value of the Cramer's V  
+  rows.append(col)
+  
+cramers_results = np.array(rows)
+df = pd.DataFrame(cramers_results, columns = data.columns, index =data.columns)
+#See the correlation matrix
+df
+
+#Cremer's V correlation coefficient heatmap
+sns.heatmap(df.corr(), cmap='coolwarm')
 
 # Plot all the variables using histogram subplots
 fig, axes = plt.subplots(nrows=len(data.columns), ncols=1, figsize=(10,len(data.columns)*4))
@@ -646,19 +665,32 @@ calibrated_classifier.fit(x_train, y_train)
 # Get predicted probabilities for the positive class (class 1)
 svm_new_pred = calibrated_classifier.predict_proba(x_test)[:, 1]
 
-# Calculate precision and recall
-precision, recall, _ = precision_recall_curve(y_test, svm_new_pred)
+# Define your trained models
+models = [dtc_tuned, rfc_tuned, KNN_tuned, calibrated_classifier, nb_tuned, lr_tuned, gb_tuned, xgb_tuned, ensemble_model]
+model_names = ['Decision Tree', 'Random Forest', 'KNN', 'Calibrated Classifier', 'Naive Bayes', 'Logistic Regression', 'Gradient Boosting', 'XGBoost', 'Ensemble']
 
-# Calculate AUC-PR
-auc_pr = auc(recall, precision)
+# Plot AUC-PRC for each model
+plt.figure(figsize=(10, 6))
+for model, name in zip(models, model_names):
+    # Generate model predictions or decision scores for the test set
+    y_score = model.predict_proba(x_test)[:, 1]
 
-# Plot the PR curve
-plt.figure(figsize=(8, 6))
-plt.plot(recall, precision, color='b', label=f'AUC-PR = {auc_pr:.2f}')
+    # Calculate precision and recall
+    precision, recall, _ = precision_recall_curve(y_test, y_score)
+
+    # Calculate AUC-PRC
+    auc_prc = auc(recall, precision)
+
+    # Plot the PR curve for each model
+    plt.plot(recall, precision, label=f'{name} (AUC-PRC = {auc_prc:.2f})')
+
+# Add labels and title
 plt.xlabel('Recall')
 plt.ylabel('Precision')
 plt.title('Precision-Recall Curve')
-plt.legend(loc='lower left')
+plt.legend()
 plt.grid(True)
+plt.xlim([0, 1])
+plt.ylim([0.5, 1])
 plt.show()
 
