@@ -70,16 +70,16 @@ y_test_df = pd.DataFrame(y_test)
 
 #save if necessary
 # Save x_train to Excel
-x_train_df.to_excel("C:/Users/kirubel/Documents/MuleProject/Code/Docker/Dockerfile/x_train.xlsx", index=False)
+x_train_df.to_excel("data path/your own location/x_train.xlsx", index=False)
 
 # Save x_test to Excel
-x_test_df.to_excel("C:/Users/kirubel/Documents/MuleProject/Code/Docker/Dockerfile/x_test.xlsx", index=False)
+x_test_df.to_excel("data path/your own location/x_test.xlsx", index=False)
 
 # Save y_train to Excel
-y_train_df.to_excel("C:/Users/kirubel/Documents/MuleProject/Code/Docker/Dockerfile/y_train.xlsx", index=False)
+y_train_df.to_excel("data path/your own location/y_train.xlsx", index=False)
 
 # Save y_test to Excel
-y_test_df.to_excel("C:/Users/kirubel/Documents/MuleProject/Code/Docker/Dockerfile/y_test.xlsx", index=False)
+y_test_df.to_excel("data path/your own location/y_test.xlsx", index=False)
 
 # Check the number of records after over sampling
 from collections import Counter
